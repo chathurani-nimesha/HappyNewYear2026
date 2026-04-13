@@ -48,21 +48,39 @@
 </head>
 <body style="text-align: center; font-family: sans-serif; background: #fff8e7;">
     <h1>Happy Sinhala & Tamil New Year 2026</h1>
+    
+    <audio id="bgMusic" loop>
+        <source src="src/Deck-The-halls-Long-Version-chosic.com_.mp3" type="audio/mpeg">
+    </audio>
+
     <p>Wishing you hapiness, success, and endless joy</p>
+
+    <input type="text" id="username" placeholder="Enter your name"
+    style="padding:10px; border-radius:20px; border:none; margin-bottom:15px;">
 
     <button onclick="showSurprise()">Click for Surprise</button>
     <p id="message"></p>
 
     <script>
         function showSurprise(){
+            const name=document.getElementById("username").value;
             const msg = document.getElementById("message");
+            const music=document.getElementById("bgMusic");
+
+            if(name ===""){
+                alert("Please enter your name ");
+                return;
+            }
+
+            //play music
+            music.play();
 
       const messages = [
         "Wishing you happiness",
         "Wishing you love",
         "Wishing you success",
         "Let’s grow together this year!",
-        "You are special "
+        name + ", you are special "
       ];
 
       let i = 0;
