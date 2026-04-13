@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2026</title>
+    <style>
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg,#ffecd2,#fcb69f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1{
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        button{
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            background: #ff6f61;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover{
+            background: #ff3b2e;
+        }
+
+        #message{
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #222;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+    </style>
+</head>
+<body style="text-align: center; font-family: sans-serif; background: #fff8e7;">
+    <h1>Happy Sinhala & Tamil New Year 2026</h1>
+    <p>Wishing you hapiness, success, and endless joy</p>
+
+    <button onclick="showSurprise()">Click for Surprise</button>
+    <p id="message"></p>
+
+    <script>
+        function showSurprise(){
+            const msg = document.getElementById("message");
+
+      const messages = [
+        "Wishing you happiness",
+        "Wishing you love",
+        "Wishing you success",
+        "Let’s grow together this year!",
+        "You are special "
+      ];
+
+      let i = 0;
+      msg.style.opacity = 1;
+      msg.innerHTML = "";
+
+      let interval = setInterval(() => {
+        if (i < messages.length) {
+          msg.innerHTML += messages[i] + "<br>";
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+        
+    </script>
+</body>
+</html>
