@@ -44,11 +44,111 @@
             transition: opacity 1s ease;
         }
 
+        #fireworks{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            }
+
+            /* Parallax container */
+            .parallax {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            }
+
+            /* Base sky */
+            .sky {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #ffecd2, #87ceeb);
+            }
+
+            /* Clouds layer */
+            .clouds {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image: url("https://i.imgur.com/Q9p8V.png"); /* simple cloud pattern */
+            background-repeat: repeat-x;
+            opacity: 0.4;
+            animation: moveClouds 60s linear infinite;
+            }
+
+            /* Ground layer */
+            .ground {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 150px;
+            background: linear-gradient(to top, #3cb371, transparent);
+            animation: moveGround 20s linear infinite;
+            }
+
+            /* Animations */
+            @keyframes moveClouds {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+            }
+
+            @keyframes moveGround {
+            from { transform: translateX(0); }
+            to { transform: translateX(-25%); }
+            }
+
+
+            .newyear-title {
+                font-size: 2.5rem;
+                font-weight: bold;
+                text-align: center;
+                color: #ff3b2e;
+                animation: glow 2s infinite alternate, floatText 3s ease-in-out infinite;
+                }
+
+                /* glowing effect */
+                @keyframes glow {
+                0% {
+                    text-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61;
+                    transform: scale(1);
+                }
+                100% {
+                    text-shadow: 0 0 20px #ff3b2e, 0 0 40px #ff3b2e;
+                    transform: scale(1.05);
+                }
+                }
+
+                /* floating up-down effect */
+                @keyframes floatText {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+                }
     </style>
 </head>
+
 <body style="text-align: center; font-family: sans-serif; background: #fff8e7;">
-    <h1>Happy Sinhala & Tamil New Year 2026</h1>
+    <canvas id="fireworks"></canvas>
     
+    <div class="parallax">
+        <div class="layer sky"></div>
+        <div class="layer clouds"></div>
+        <div class="layer ground"></div>
+    </div>
+
+    <div class="newyear-title">
+        <h1>Happy Sinhala & Tamil New Year 2026</h1>
+    </div>
+
     <audio id="bgMusic" loop>
         <source src="src/Deck-The-halls-Long-Version-chosic.com_.mp3" type="audio/mpeg">
     </audio>
@@ -62,11 +162,12 @@
     <p id="message"></p>
 
     <script>
+
         function showSurprise(){
             const name=document.getElementById("username").value;
             const msg = document.getElementById("message");
             const music=document.getElementById("bgMusic");
-
+            
             if(name ===""){
                 alert("Please enter your name ");
                 return;
@@ -95,8 +196,77 @@
           clearInterval(interval);
         }
       }, 1000);
+
+      createFirework(window.innerWidth / 2, window.innerHeight / 3);
     }
+
+    const canvas=document.getElementById("fireworks");
+    const ctx=canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function random(min, max) {
+    return Math.random() * (max - min) + min;
+    }
+
+    function createFirework(x, y) {
+    for (let i = 0; i < 30; i++) {
+        particles.push({
+        x: x,
+        y: y,
+        angle: Math.random() * 2 * Math.PI,
+        speed: random(1, 5),
+        radius: 3,
+        alpha: 1
+        });
+    }
+    }
+
+    function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, index) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.01;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 100, 0, ${p.alpha})`;
+        ctx.fill();
+
+        if (p.alpha <= 0) {
+        particles.splice(index, 1);
+        }
+    });
+
+    requestAnimationFrame(update);
+    }
+
+    update();
+
+    // 🎆 auto fireworks every 2 seconds
+    setInterval(() => {
+    createFirework(
+        Math.random() * canvas.width,
+        Math.random() * canvas.height / 2
+    );
+    }, 1000);
         
+
+    document.addEventListener("mousemove", (e) => {
+        const clouds = document.querySelector(".clouds");
+        const ground = document.querySelector(".ground");
+
+        let x = (e.clientX / window.innerWidth) * 10;
+
+        clouds.style.transform = `translateX(-${x}px)`;
+        ground.style.transform = `translateX(-${x * 2}px)`;
+    });
+
     </script>
 </body>
 </html>
