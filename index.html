@@ -1,272 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year 2026</title>
-    <style>
-        body{
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg,#ffecd2,#fcb69f);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>New Year Surprise 🎉</title>
 
-        h1{
-            font-size: 2.5rem;
-            color: #333;
-        }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
 
-        button{
-            padding: 12px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 25px;
-            background: #ff6f61;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover{
-            background: #ff3b2e;
-        }
+body{
+  height:100vh;
+  overflow:hidden;
+  background: radial-gradient(circle at top,#000428,#004e92);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
 
-        #message{
-            margin-top: 20px;
-            font-size: 1.3rem;
-            color: #222;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
+/* FIREWORKS */
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:0;
+}
 
-        #fireworks{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
+/* SPARKLES */
+.sparkle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  animation: floatUp 6s linear infinite;
+  opacity:0.6;
+}
 
-        body {
-            margin: 0;
-            overflow: hidden;
-            }
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0); opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh) scale(1); opacity:0;}
+}
 
-            /* Parallax container */
-            .parallax {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -10;
-            }
+.container{
+  text-align:center;
+  z-index:2;
+}
 
-            /* Base sky */
-            .sky {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, #ffecd2, #87ceeb);
-            }
+h1{
+  font-size:2.5rem;
+  margin-bottom:20px;
+  animation: glow 2s infinite alternate;
+}
 
-            /* Clouds layer */
-            .clouds {
-            position: absolute;
-            width: 200%;
-            height: 100%;
-            background-image: url("https://i.imgur.com/Q9p8V.png"); /* simple cloud pattern */
-            background-repeat: repeat-x;
-            opacity: 0.4;
-            animation: moveClouds 60s linear infinite;
-            }
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff;}
+  to{text-shadow:0 0 25px #00e6ff;}
+}
 
-            /* Ground layer */
-            .ground {
-            position: absolute;
-            bottom: 0;
-            width: 200%;
-            height: 150px;
-            background: linear-gradient(to top, #3cb371, transparent);
-            animation: moveGround 20s linear infinite;
-            }
+/* GIFT */
+.gift{
+  font-size:80px;
+  cursor:pointer;
+  animation:bounce 1.5s infinite;
+  transition:0.3s;
+}
 
-            /* Animations */
-            @keyframes moveClouds {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-            }
+.gift:hover{
+  transform:scale(1.2);
+}
 
-            @keyframes moveGround {
-            from { transform: translateX(0); }
-            to { transform: translateX(-25%); }
-            }
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
 
+/* CARD */
+.card{
+  display:none;
+  margin-top:20px;
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:15px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  max-width:350px;
+  animation:fadeIn 1s ease forwards;
+}
 
-            .newyear-title {
-                font-size: 2.5rem;
-                font-weight: bold;
-                text-align: center;
-                color: #ff3b2e;
-                animation: glow 2s infinite alternate, floatText 3s ease-in-out infinite;
-                }
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.7);}
+  to{opacity:1; transform:scale(1);}
+}
 
-                /* glowing effect */
-                @keyframes glow {
-                0% {
-                    text-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61;
-                    transform: scale(1);
-                }
-                100% {
-                    text-shadow: 0 0 20px #ff3b2e, 0 0 40px #ff3b2e;
-                    transform: scale(1.05);
-                }
-                }
+.card p{
+  margin:8px 0;
+  font-size:1rem;
+  line-height:1.4;
+}
 
-                /* floating up-down effect */
-                @keyframes floatText {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-                100% { transform: translateY(0px); }
-                }
-    </style>
+/* BUTTONS */
+button{
+  margin-top:15px;
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#00e6ff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#00ff99;
+  transform:scale(1.05);
+}
+
+/* MUSIC BUTTON */
+.musicBtn{
+  position:absolute;
+  top:15px;
+  right:15px;
+  z-index:10;
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#00e6ff;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
 </head>
 
-<body style="text-align: center; font-family: sans-serif; background: #fff8e7;">
-    <canvas id="fireworks"></canvas>
-    
-    <div class="parallax">
-        <div class="layer sky"></div>
-        <div class="layer clouds"></div>
-        <div class="layer ground"></div>
-    </div>
+<body>
 
-    <div class="newyear-title">
-        <h1>Happy Sinhala & Tamil New Year 2026</h1>
-    </div>
+<canvas id="fireworks"></canvas>
 
-    <audio id="bgMusic" loop>
-        <source src="src/Deck-The-halls-Long-Version-chosic.com_.mp3" type="audio/mpeg">
-    </audio>
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="src/Deck-The-halls-Long-Version-chosic.com_.mp3" type="audio/mpeg">
+</audio>
 
-    <p>Wishing you hapiness, success, and endless joy</p>
+<button class="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
 
-    <input type="text" id="username" placeholder="Enter your name"
-    style="padding:10px; border-radius:20px; border:none; margin-bottom:15px;">
+<div class="container">
+  <h1>✨ Happy Sinhala and Tamil New Year ✨</h1>
 
-    <button onclick="showSurprise()">Click for Surprise</button>
-    <p id="message"></p>
+  <div class="gift" onclick="openGift()">🎁</div>
 
-    <script>
+  <div class="card" id="card">
+    <h2>New Year Wishes 🎉</h2>
+    <div id="wishText"></div>
 
-        function showSurprise(){
-            const name=document.getElementById("username").value;
-            const msg = document.getElementById("message");
-            const music=document.getElementById("bgMusic");
-            
-            if(name ===""){
-                alert("Please enter your name ");
-                return;
-            }
+    <button onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+  </div>
+</div>
 
-            //play music
-            music.play();
+<script>
 
-      const messages = [
-        "Wishing you happiness",
-        "Wishing you love",
-        "Wishing you success",
-        "Let’s grow together this year!",
-        name + ", you are special "
-      ];
+/* 🎁 LONG RANDOM WISHES */
+const wishes = [
+`May this New Year bring endless happiness into your life.
+May your dreams shine brighter than ever before.
+May success follow you in every step you take.
+And may your heart always stay full of peace and love.`,
 
-      let i = 0;
-      msg.style.opacity = 1;
-      msg.innerHTML = "";
+`A new year is a new beginning filled with hope.
+Leave behind all sadness and welcome joy and success.
+May your journey be filled with beautiful moments.
+Stay strong, stay blessed, and keep smiling always.`,
 
-      let interval = setInterval(() => {
-        if (i < messages.length) {
-          msg.innerHTML += messages[i] + "<br>";
-          i++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 1000);
+`Wishing you a year full of magical moments and achievements.
+May every day bring new opportunities for you.
+May your hard work turn into great success.
+And may happiness never leave your side.`,
 
-      createFirework(window.innerWidth / 2, window.innerHeight / 3);
-    }
+`Let this year be the turning point of your life.
+May all your struggles turn into strength.
+May you achieve everything you dream of.
+And may peace and prosperity follow you always.`
+];
 
-    const canvas=document.getElementById("fireworks");
-    const ctx=canvas.getContext("2d");
+/* 🎁 OPEN GIFT */
+function openGift(){
+  const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+  const box = document.getElementById("wishText");
+  box.innerHTML = "";
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  randomWish.split("\n").forEach(line=>{
+    const p = document.createElement("p");
+    p.innerText = line;
+    box.appendChild(p);
+  });
 
-    let particles = [];
+  document.getElementById("card").style.display = "block";
+}
 
-    function random(min, max) {
-    return Math.random() * (max - min) + min;
-    }
+/* 📲 WHATSAPP */
+function shareWhatsApp(){
+  const text = "🎉 Happy New Year! Wishing you happiness, success, love & prosperity in 2026! 🎊";
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+}
 
-    function createFirework(x, y) {
-    for (let i = 0; i < 30; i++) {
-        particles.push({
-        x: x,
-        y: y,
-        angle: Math.random() * 2 * Math.PI,
-        speed: random(1, 5),
-        radius: 3,
-        alpha: 1
-        });
-    }
-    }
+/* 🎵 MUSIC CONTROL */
+let musicPlaying = false;
+const music = document.getElementById("bgMusic");
+const btn = document.querySelector(".musicBtn");
 
-    function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+/* TRY AUTOPLAY */
+window.addEventListener("load", () => {
+  music.play()
+  .then(() => {
+    musicPlaying = true;
+    btn.innerText = "🔊 Music On";
+  })
+  .catch(() => {
+    musicPlaying = false;
+    btn.innerText = "🎵 Tap to Play Music";
+  });
+});
 
-    particles.forEach((p, index) => {
-        p.x += Math.cos(p.angle) * p.speed;
-        p.y += Math.sin(p.angle) * p.speed;
-        p.alpha -= 0.01;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 100, 0, ${p.alpha})`;
-        ctx.fill();
-
-        if (p.alpha <= 0) {
-        particles.splice(index, 1);
-        }
+/* MANUAL CONTROL */
+function toggleMusic(){
+  if(!musicPlaying){
+    music.play().then(()=>{
+      musicPlaying = true;
+      btn.innerText = "🔊 Music On";
     });
+  }else{
+    music.pause();
+    musicPlaying = false;
+    btn.innerText = "🎵 Play Music";
+  }
+}
 
-    requestAnimationFrame(update);
-    }
+/* 🎆 FIREWORKS */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
 
-    update();
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    // 🎆 auto fireworks every 2 seconds
-    setInterval(() => {
-    createFirework(
-        Math.random() * canvas.width,
-        Math.random() * canvas.height / 2
-    );
-    }, 1000);
-        
+let particles = [];
 
-    document.addEventListener("mousemove", (e) => {
-        const clouds = document.querySelector(".clouds");
-        const ground = document.querySelector(".ground");
+function Particle(x,y){
+  this.x=x;
+  this.y=y;
+  this.radius=Math.random()*3+1;
+  this.color=`hsl(${Math.random()*360},100%,60%)`;
+  this.vx=(Math.random()-0.5)*5;
+  this.vy=(Math.random()-0.5)*5;
+  this.alpha=1;
+}
 
-        let x = (e.clientX / window.innerWidth) * 10;
+function createFirework(){
+  let x = Math.random()*canvas.width;
+  let y = Math.random()*canvas.height/2;
 
-        clouds.style.transform = `translateX(-${x}px)`;
-        ground.style.transform = `translateX(-${x * 2}px)`;
-    });
+  for(let i=0;i<35;i++){
+    particles.push(new Particle(x,y));
+  }
+}
 
-    </script>
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.fillStyle="rgba(0,0,0,0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach((p,i)=>{
+    p.x += p.vx;
+    p.y += p.vy;
+    p.alpha -= 0.01;
+
+    ctx.globalAlpha = p.alpha;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+
+    if(p.alpha<=0) particles.splice(i,1);
+  });
+}
+
+setInterval(createFirework, 700);
+animate();
+
+/* ✨ SPARKLES */
+for(let i=0;i<35;i++){
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(3+Math.random()*5)+"s";
+  document.body.appendChild(s);
+}
+
+</script>
+
 </body>
 </html>
